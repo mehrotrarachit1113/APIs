@@ -1,6 +1,6 @@
 const expect = require('expect')
 const request = require('supertest')
-
+const {ObjectID} = require('mongodb')
 const {app} = require('./../server');
 const {Todo} = require('./../models/todo');
 
@@ -36,3 +36,11 @@ describe('POST /todos' , () => {
         })
     });
 });
+
+describe('Get todos/:id' , () => {
+    it('Should return todo doc' , (done) => {
+        request(app)
+        .get(`/todos/${todos[0]._id.toHexString()}`)
+        .expect(200)
+    })
+})
